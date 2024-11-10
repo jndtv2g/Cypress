@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+			"name": "Playwright"
+		},
+		{
+			"path": "../tests-examples"
+			
+		}
+	],
+	"settings": {}
+}
