@@ -1,2 +1,2 @@
 # Playwright
-Repository for web automation scripts using Cypress
+Repository for web automation scripts using Playwright (TypeScript)
