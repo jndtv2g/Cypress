@@ -68,6 +68,11 @@ test.describe.serial('Validate Automation Exercise website', () => {
     test("Add item to cart", async () => {
         // Hover mouse pointer on a product from the product detail page
         await productsPage.hoverOnProduct();
+        
+        // Add product to cart
         await productsPage.addProductToCart();
+        
+        // Verify product is added to cart successfully
+        await productsPage.verifyProductAdded();
     });
 });
