@@ -1,14 +1,18 @@
-import { chromium, test, expect } from "@playwright/test";
-
+// src/tests/test.spec.ts
+import { chromium, test, expect, Page, Browser, BrowserContext } from "@playwright/test";
+import { HomePage } from "../pages/HomePage";
+import { LoginPage } from "../pages/LoginPage";
+    
 test.describe.serial('Validate Automation Exercise website', () => {
-    /** @type {import('@playwright/test').Page} */
-    let browserInstance; 
-    let context;
-    let page;
+    let browserInstance: Browser;
+    let context: BrowserContext;
+    let page: Page;
+    let homePage: HomePage;
+    let loginPage: LoginPage;
 
     // This runs once before all tests in this block
     test.beforeAll(async () => {
-        // Launch the browser (store it in browserInstance to avoid reusing the name)
+        // Launch the browser
         browserInstance = await chromium.launch({ headless: false });
 
         // Set a large viewport size (like full HD resolution)
@@ -18,6 +22,10 @@ test.describe.serial('Validate Automation Exercise website', () => {
 
         // Create a single page instance to reuse
         page = await context.newPage();
+        
+        // Initialize the page objects
+        homePage = new HomePage(page);
+        loginPage = new LoginPage(page);
     });
 
     // This runs once after all tests in this block
@@ -31,34 +39,26 @@ test.describe.serial('Validate Automation Exercise website', () => {
     });
 
     test("Navigate to Automation Exercise homepage", async () => {
-        // Navigate to the homepage
-        await page.goto("https://automationexercise.com/");
-        
+        // Use the HomePage object to navigate to the homepage
+        await homePage.navigateToHomePage();
+
         // Verify the title of the page
         await expect(page).toHaveTitle(/Automation Exercise/);
     });
 
     test("Login to site as existing user", async () => {
-        // Navigate to the login page
-        //await page.getByRole('button', { name: 'Signup / Login'}).click();   
-        await page.click('text=Signup / Login');   
+        // Navigate to the login page using HomePage object
+        await homePage.goToLoginPage();
 
-        // Verify if user landed on login page
-        await expect(page).toHaveURL(/login/); // Adjust this to match a post-login URL or specific element
+        // Verify if user landed on login page using LoginPage object
+        await loginPage.verifyOnLoginPage();
 
-        // Enter login credentials
-        await page.fill('[data-qa="login-email"]', 'valid@abc.com');
-        await page.fill('[data-qa="login-password"]', 'password');
-
-        // Click the login button
-        //await page.getByRole('button', { name: 'Log In' }).click() // Adjust selector if needed
-        await page.click('[data-qa="login-button"]');
-        
+        // Log in using LoginPage object
+        await loginPage.login('valid@abc.com', 'password');
     });
-    
+
     test("Navigate to list of products", async () => {
-        // Navigate to the Products page
-        await page.click('text=Products');
+        // Navigate to the Products page using HomePage object
+        await homePage.goToProductsPage();
     });
-
 });
