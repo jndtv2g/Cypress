@@ -2,7 +2,7 @@
 import { chromium, test, expect, Page, Browser, BrowserContext } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
-
+    
 test.describe.serial('Validate Automation Exercise website', () => {
     let browserInstance: Browser;
     let context: BrowserContext;
