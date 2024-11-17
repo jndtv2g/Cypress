@@ -46,7 +46,7 @@ test.describe.serial('Validate Automation Exercise website', () => {
         await homePage.navigateToHomePage();
 
         // Verify the title of the page
-        await expect(page).toHaveTitle(/Automation Exercise/);
+        await homePage.verifyHomepage();
     });
 
     test("Login to site as existing user", async () => {
