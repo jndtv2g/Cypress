@@ -2,6 +2,7 @@
 import { chromium, test, expect, Page, Browser, BrowserContext } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
+import { ProductsPage } from "../pages/ProductsPage";
     
 test.describe.serial('Validate Automation Exercise website', () => {
     let browserInstance: Browser;
@@ -9,6 +10,7 @@ test.describe.serial('Validate Automation Exercise website', () => {
     let page: Page;
     let homePage: HomePage;
     let loginPage: LoginPage;
+    let productsPage: ProductsPage;
 
     // This runs once before all tests in this block
     test.beforeAll(async () => {
@@ -26,6 +28,7 @@ test.describe.serial('Validate Automation Exercise website', () => {
         // Initialize the page objects
         homePage = new HomePage(page);
         loginPage = new LoginPage(page);
+        productsPage = new ProductsPage(page);
     });
 
     // This runs once after all tests in this block
@@ -60,5 +63,11 @@ test.describe.serial('Validate Automation Exercise website', () => {
     test("Navigate to list of products", async () => {
         // Navigate to the Products page using HomePage object
         await homePage.goToProductsPage();
+    });
+
+    test("Add item to cart", async () => {
+        // Hover mouse pointer on a product from the product detail page
+        await productsPage.hoverOnProduct();
+        await productsPage.addProductToCart();
     });
 });
