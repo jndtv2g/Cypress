@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 export class HomePage {
     private page: Page;
@@ -19,6 +19,11 @@ export class HomePage {
     // Click on the 'Signup / Login' button
     async goToLoginPage(): Promise<void> {
         await this.page.click(this.loginButton);
+    }
+
+    // Verify user has landed in the correct homepage
+    async verifyHomepage(): Promise<void> {
+        await expect(this.page).toHaveTitle(/Automation Exercise/);
     }
 
     // Click on the 'Products' button

@@ -22,8 +22,9 @@ export class ProductsPage {
 
     // Hover on a product to add to cart later on
     async hoverOnProduct(): Promise<void> {
+        // Check whether the hover is working
         console.log('Hovering over product:', this.itemText);
-        //  await this.page.locator(this.itemText).scrollIntoViewIfNeeded();
+        // await this.page.locator(this.itemText).scrollIntoViewIfNeeded();
         await this.page.hover(this.itemText);
     }
 
@@ -32,6 +33,7 @@ export class ProductsPage {
         await this.page.click(this.itemButton);
     }
 
+    // Verify product has been added to cart with the confirmation pop up
     async verifyProductAdded(): Promise<void> {
         const addedMsg = this.page.locator(this.itemAdded);
         await expect(addedMsg).toBeVisible();
