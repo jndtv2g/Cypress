@@ -74,5 +74,8 @@ test.describe.serial('Validate Automation Exercise website', () => {
         
         // Verify product is added to cart successfully
         await productsPage.verifyProductAdded();
+
+        // Dismiss confirmation pop up
+        await productsPage.dismissConfirmationDialog();
     });
 });
